@@ -24,7 +24,7 @@ const Collection = () => {
 
   }
 
-  const toogleSubCategory = (e) => {
+  const toggleSubCategory = (e) => {
 
     if (subCategory.includes(e.target.value)) {
       setSubCategory(prev=> prev.filter(item => item !== e.target.value))
@@ -112,13 +112,13 @@ const Collection = () => {
           <p className='mb-3 text-sm font-medium'>TYPE</p>
           <div className='flex flex-col gap-2 text-sm font-light text-gray-700'>
             <p className='flex gap-2'>
-              <input className='w-3' type="checkbox" value={'Topwear'} onChange={toogleSubCategory}/> Topwear
+              <input className='w-3' type="checkbox" value={'Topwear'} onChange={toggleSubCategory}/> Topwear
             </p>
             <p className='flex gap-2'>
-              <input className='w-3' type="checkbox" value={'Bottomwear'} onChange={toogleSubCategory}/> Bottomwear
+              <input className='w-3' type="checkbox" value={'Bottomwear'} onChange={toggleSubCategory}/> Bottomwear
             </p>
             <p className='flex gap-2'>
-              <input className='w-3' type="checkbox" value={'Winterwear'} onChange={toogleSubCategory}/> Winterwear
+              <input className='w-3' type="checkbox" value={'Winterwear'} onChange={toggleSubCategory}/> Winterwear
             </p>
           </div>
         </div>
