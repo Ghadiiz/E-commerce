@@ -4,7 +4,7 @@ import userModel from "../models/userModel.js";
 import Stripe from 'stripe';
 
 // global variables
-const currency = '$'
+const currency = 'usd'
 const deliveryCharge = 10
 
 //GETWAY INITIALIZE 
