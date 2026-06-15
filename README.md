@@ -1,51 +1,85 @@
-# E-Commerce Website - MERN Stack
+# Noiré — Full-Stack E-Commerce Platform 🛍️
 
-A full-stack e-commerce platform built with MongoDB, Express.js, React, and Node.js, featuring an admin dashboard and multiple payment gateway integrations.
+A complete MERN e-commerce store where users browse, filter, and buy products, with a full
+admin dashboard for managing the catalog and orders.
 
-## Overview
+![Noiré homepage](screenshots/homepage.png)
 
-This project is a complete e-commerce solution where users can browse products, filter and sort items, add products to cart with size variants. The platform includes a comprehensive admin dashboard for product management and order tracking.
+[![Live Demo](https://img.shields.io/badge/Live_Demo-Visit_Store-000000?style=for-the-badge)](https://e-commerce-frontend-tau-tan.vercel.app/)
+&nbsp;
+![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=node.js&logoColor=white)
+![Express](https://img.shields.io/badge/Express-000000?style=for-the-badge&logo=express&logoColor=white)
+![MongoDB](https://img.shields.io/badge/MongoDB-47A248?style=for-the-badge&logo=mongodb&logoColor=white)
 
-## Features
+## 🔗 Live
 
-### User Features
-- Browse and explore products
-- Filter and sort products
-- Add products to cart with variant selection (size, color, etc.)
-- Place orders with delivery address
-- Payment option: Cash on Delivery
-- View order history
+- **Storefront:** https://e-commerce-frontend-tau-tan.vercel.app/
+- **Admin dashboard:** `ADD_ADMIN_URL_HERE` _(demo login on request)_
 
-### Admin Features
-- Upload and manage products
-- Delete products
-- View all products in store
-- Track and manage orders
-- Admin authentication
-- Comprehensive dashboard
+## ✨ Features
 
-## Tech Stack
+**Shoppers**
+- Browse, search, filter, and sort products
+- Product variants (size selection) and a persistent cart
+- Place orders with a delivery address and view order history
 
-**Frontend:**
-- React JS
-- React Router (page routing)
-- Context API
+**Admin**
+- Authenticated admin dashboard
+- Add, edit, and delete products
+- View and manage all orders across the store
 
-**Backend:**
-- Node.js
-- Express.js
-- MongoDB (database)
-- Mongoose (ODM)
+## 🧰 Tech Stack
 
-**Deployment:**
-- Vercel (Frontend & Backend)
+| Layer | Technology |
+| --- | --- |
+| Frontend | React, React Router, Context API, Tailwind CSS, Vite |
+| Backend | Node.js, Express.js |
+| Database | MongoDB + Mongoose |
+| Deployment | Vercel (frontend & backend) |
 
-## Installation
+## 🚀 Getting Started
 
-### Prerequisites
-- Node.js installed
-- MongoDB database
+```bash
+# clone
+git clone https://github.com/Ghadiiz/E-commerce.git
+cd E-commerce
 
-## Acknowledgments
+# backend
+cd backend && npm install && npm run server
 
-Based on a comprehensive MERN stack project covering frontend development, backend API creation and deployment.
+# frontend (new terminal)
+cd frontend && npm install && npm run dev
+
+# admin (new terminal)
+cd admin && npm install && npm run dev
+```
+
+Create a `.env` in `/backend` based on `.env.example`:
+
+```
+MONGODB_URI=your_mongodb_connection_string
+JWT_SECRET=your_jwt_secret
+ADMIN_EMAIL=your_admin_email
+ADMIN_PASSWORD=your_admin_password
+```
+
+## 📁 Structure
+
+```
+E-commerce/
+├── frontend/   # customer-facing store (React)
+├── admin/      # admin dashboard (React)
+└── backend/    # REST API (Node/Express/MongoDB)
+```
+
+## 👤 About
+
+Built by **Ghadi Dababneh** to practice end-to-end MERN development — REST API design, auth,
+state management, and deployment. Started from a MERN course foundation as a hands-on learning project.
+
+[GitHub](https://github.com/Ghadiiz) · [LinkedIn](https://www.linkedin.com/in/ghadi-dababneh-a203b9378/)
+
+## 📄 License
+
+MIT
