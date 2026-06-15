@@ -1,5 +1,0 @@
-Problem 1: When removing an item from the cart the id of the item remains in the database but the quantity is switched to 0.
-Problem 2: Should i keep the stripe payment?
-Question: Can you check it for me if everything is okay and if not, tell me what can i do to fix.
-Fix Database.
-User verification
