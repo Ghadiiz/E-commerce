@@ -35,6 +35,14 @@ admin dashboard for managing the catalog and orders.
 - Add, edit, and delete products, with image upload
 - View and manage all orders across the store
 
+## 📸 Screenshots
+
+| Orders | Products | Add product |
+| --- | --- | --- |
+| ![Admin orders view showing Stripe and cash-on-delivery orders with status controls](screenshots/admin-orders.png) | ![Admin product list with categories and prices](screenshots/admin-products.png) | ![Admin add-product form](screenshots/admin-add.png) |
+
+The admin dashboard is credential-protected, so these show what the live link can't.
+
 ## 🧰 Tech Stack
 
 | Layer | Technology |
