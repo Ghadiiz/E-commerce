@@ -155,6 +155,26 @@ const ShopContextProvider = (props) => {
         }
     }, [])
 
+    useEffect(() => {
+        const authFailureMessages = ['jwt expired', 'not authorized login again', 'invalid signature', 'jwt malformed'];
+
+        const interceptor = axios.interceptors.response.use((response) => {
+            const { success, message } = response.data || {};
+            if (success === false && message && authFailureMessages.includes(message.toLowerCase())) {
+                setToken('');
+                localStorage.removeItem('token');
+                setCartItems({});
+                navigate('/login');
+                toast.info('Your session expired, please log in again');
+            }
+            return response;
+        });
+
+        return () => {
+            axios.interceptors.response.eject(interceptor);
+        }
+    }, [])
+
     const value = {
         products, currency, delivery_fee,
         search, setSearch, showSearch, setShowSearch,

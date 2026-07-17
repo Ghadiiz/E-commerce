@@ -6,8 +6,9 @@ import Add from './pages/Add'
 import List from './pages/List'
 import Orders from './pages/Orders'
 import Login from './components/Login'
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import axios from 'axios';
 
 export const backendUrl = import.meta.env.VITE_BACKEND_URL
 export const currency = '$'
@@ -19,6 +20,24 @@ const App = () => {
   useEffect(()=>{
     localStorage.setItem('token',token)
   },[token])
+
+  useEffect(() => {
+    const authFailureMessages = ['jwt expired', 'not authorized login again', 'invalid signature', 'jwt malformed'];
+
+    const interceptor = axios.interceptors.response.use((response) => {
+      const { success, message } = response.data || {};
+      if (success === false && message && authFailureMessages.includes(message.toLowerCase())) {
+        setToken('');
+        localStorage.removeItem('token');
+        toast.info('Your session expired, please log in again');
+      }
+      return response;
+    });
+
+    return () => {
+      axios.interceptors.response.eject(interceptor);
+    }
+  }, [])
 
   return (
     <div className='bg-gray-50 min-h-screen'>
