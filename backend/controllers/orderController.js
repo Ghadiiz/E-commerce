@@ -1,25 +1,74 @@
 
 import orderModel from "../models/orderModel.js";
 import userModel from "../models/userModel.js";
+import productModel from "../models/productModel.js";
 import Stripe from 'stripe';
 
 // global variables
 const currency = 'usd'
 const deliveryCharge = 10
 
-//GETWAY INITIALIZE 
+//GETWAY INITIALIZE
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
+
+// Recomputes order items and amount from the database so client-supplied
+// prices/amounts can never be trusted.
+const buildOrderItems = async (items) => {
+
+    if (!Array.isArray(items) || items.length === 0) {
+        throw new Error("Order must contain at least one item")
+    }
+
+    const orderItems = []
+    let amount = 0
+
+    for (const item of items) {
+
+        const { _id, size, quantity } = item || {}
+
+        if (!Number.isInteger(quantity) || quantity < 1) {
+            throw new Error("Invalid item quantity")
+        }
+
+        const product = await productModel.findById(_id)
+
+        if (!product) {
+            throw new Error("Product not found")
+        }
+
+        if (!product.sizes.includes(size)) {
+            throw new Error("Invalid product size")
+        }
+
+        orderItems.push({
+            _id: product._id,
+            name: product.name,
+            price: product.price,
+            image: product.image,
+            size,
+            quantity,
+        })
+
+        amount += product.price * quantity
+    }
+
+    amount += deliveryCharge
+
+    return { orderItems, amount }
+}
 
 // Placing Orders using Cash on delivery Method
 const placeOrder = async (req, res) => {
 
     try {
 
-        const { userId, items, amount, address } = req.body;
+        const { userId, items, address } = req.body;
+
+        const { orderItems, amount } = await buildOrderItems(items)
 
         const orderData = {
             userId,
-            items,
+            items: orderItems,
             address,
             amount,
             paymentMethod: "COD",
@@ -47,12 +96,14 @@ const placeOrder = async (req, res) => {
 const placeOrderStripe = async (req, res) => {
     try {
         
-        const { userId, items, amount, address } = req.body
+        const { userId, items, address } = req.body
         const { origin } = req.headers
+
+        const { orderItems, amount } = await buildOrderItems(items)
 
         const orderData = {
             userId,
-            items,
+            items: orderItems,
             address,
             amount,
             paymentMethod: "Stripe",
@@ -63,7 +114,7 @@ const placeOrderStripe = async (req, res) => {
         const newOrder = new orderModel(orderData)
         await newOrder.save()
 
-        const line_items = items.map((item) => ({
+        const line_items = orderItems.map((item) => ({
             price_data: {
                 currency: currency,
                 product_data: {
