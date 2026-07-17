@@ -1,3 +1,25 @@
-node_modules
+# dependencies
+node_modules/
 
+# environment variables — never commit real secrets
+.env
 *.env
+.env.*
+!.env.example
+
+# build output
+dist/
+build/
+
+# logs
+*.log
+npm-debug.log*
+
+# editor / OS
+.vscode/
+.DS_Store
+Thumbs.db
+
+# tooling
+.claude/
+.vercel/
